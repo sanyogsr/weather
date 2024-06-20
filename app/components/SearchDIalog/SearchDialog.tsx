@@ -35,7 +35,7 @@ const SearchDialog = () => {
                 </DialogContent>
             </Dialog>
         </div>
-    )
+    );
 }
 
 export default SearchDialog

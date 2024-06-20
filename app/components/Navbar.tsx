@@ -6,15 +6,17 @@ import React from 'react'
 import { github } from "../utils/Icons";
 import { ThemeDropdown } from "./ThemeDropdown/ThemeDropdown";
 import SearchDialog from "./SearchDIalog/SearchDialog";
-
+import { useGlobalContext } from "../context/GlobalContext";
 
 
 const Navbar = () => {
   const router = useRouter();
-
+  // const {state}=  useGlobalContext();
   const handleSearchClick = () => {
     router.push("https://github.com/sanyogsr");
   };
+   
+
 
   return (
     <div className="w-full py-4 flex items-center justify-between">
