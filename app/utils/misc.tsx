@@ -1,3 +1,22 @@
+import moment, { unix } from "moment";
+
+
+
+export const unixToTime = (unix: number, timezone: number) => {
+    return moment.unix(unix).utcOffset(timezone / 60).format("HH:mm")
+
+}
+
+export const unxiTODay = (unix: number) => {
+    return moment.unix(unix).format("ddd");
+}
+
+
+
+
+
+
+
 export const kelvinToCelcius = (kelvin: number) => {
     return Math.round(kelvin - 273.15);
 

@@ -3,6 +3,8 @@ import React from 'react'
 import Navbar from "@/app/components/Navbar"
 import Temperature from './components/temperature/Temperature'
 import AirPollution from './components/AirPollution/AirPollution'
+import Sunset from './components/sunset/Sunset'
+import Wind from './components/Wind/Wind'
 
 const page = () => {
   return (
@@ -13,8 +15,10 @@ const page = () => {
           <Temperature />
         </div>
         <div className="flex flex-col w-full">
-          <div className="instruments">
+          <div className="instruments flex justify-between px-5">
             <AirPollution />
+            <Sunset />
+            <Wind />
           </div>
         </div>
       </div>
