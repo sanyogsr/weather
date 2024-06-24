@@ -1,14 +1,3 @@
-// "use client"
-
-// import React from 'react'
-
-// const Sunset = () => {
-//   return (
-//     <div>Sunset</div>
-//   )
-// }
-
-// export default Sunset
 "use client";
 import { useGlobalContext } from "@/app/context/GlobalContext";
 import { sunset } from "@/app/utils/Icons";
@@ -19,8 +8,8 @@ import React from "react";
 function Sunset() {
   const { forecast } = useGlobalContext();
 
-  if(!forecast ||!forecast?.sys || !forecast?.sys.sunset){
-   return <Skeleton className="h-[12rem] w-full mx-5"/>
+  if (!forecast || !forecast?.sys || !forecast?.sys.sunset) {
+    return <Skeleton className="h-[12rem] w-full " />
   }
 
   const times = forecast?.sys?.sunset;

@@ -162,7 +162,7 @@ export const GlobalContextProvider = ({ children }) => {
 
   const fetchFiveDayForecast = async (lat, lon) => {
     try {
-      const res = await axios.get(`/api/fiveday?lat=${lat}&lon=${lon}`);
+      const res = await axios.get(`/api/FiveDay?lat=${lat}&lon=${lon}`);
       setFiveDayForecast(res.data);
     } catch (error) {
       console.log("Error Fetching the Five Day Forecast", error.message);

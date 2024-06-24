@@ -13,9 +13,9 @@ const Navbar = () => {
   const router = useRouter();
   // const {state}=  useGlobalContext();
   const handleSearchClick = () => {
-    router.push("https://github.com/sanyogsr");
+    router.push("https://github.com/sanyogsr/weather");
   };
-   
+
 
 
   return (
