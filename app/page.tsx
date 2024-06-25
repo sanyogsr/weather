@@ -14,11 +14,11 @@ import Visibility from './components/Visibility/Visibility'
 import Pressure from './components/Pressure/Pressure'
 import Mapbox from './components/Mapbox/Mapbox'
 import defaultStates from './utils/DefaultStates'
-import { useGlobalContext } from './context/GlobalContext'
+import  {useGlobalContext}  from './context/GlobalContext'
 import Image from 'next/image'
 import FiveDayForecast from './components/FiveDayForecast/FiveDayForecast'
 
-const page = () => {
+const Page = () => {
   const { setActiveCityCoords } = useGlobalContext();
   const onClickCityCoords = (lat: number, lon: number) => {
     setActiveCityCoords([lat, lon]);
@@ -99,4 +99,4 @@ const page = () => {
   )
 }
 
-export default page;
+export default Page;

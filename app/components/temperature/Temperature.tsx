@@ -6,11 +6,11 @@ import moment from "moment"
 
 const Temperature = () => {
     const { forecast } = useGlobalContext();
-    console.log(forecast.data)
 
+
+    if (!forecast || !forecast?.weather) return <div>Loading...</div>
     const { main, timezone, name, weather } = forecast;
 
-    if (!forecast || !weather) return <div>Loading...</div>
 
     const temp = kelvinToCelcius(main?.temp);
     const minTemp = kelvinToCelcius(main?.temp_min);
