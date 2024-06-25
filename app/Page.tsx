@@ -20,6 +20,7 @@ import FiveDayForecast from './components/FiveDayForecast/FiveDayForecast'
 
 const Page = () => {
   const { setActiveCityCoords } = useGlobalContext();
+  //hiii
   const onClickCityCoords = (lat: number, lon: number) => {
     setActiveCityCoords([lat, lon]);
     window.scrollTo({
