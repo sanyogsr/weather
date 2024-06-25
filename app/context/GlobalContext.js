@@ -1,220 +1,109 @@
-// "use Client";
-
-// import React, { useEffect, useState } from "react";
-// import { useContext, createContext } from "react";
-// import defaultStates from "../utils/DefaultStates";
-// import axios from "axios";
-// import { debounce } from "lodash";
-
-// const GlobalContext = createContext(null);
-// const GlobalContextUpdate = createContext(null);
-
-// export const GlobalContextProvider = ({ children }) => {
-//   const [forecast, setForecast] = useState([]);
-//   const [geoCodeList, SetGeoCodeList] = useState(defaultStates);
-//   const [inputValue, setInputValue] = useState("");
-
-//   const [activeCityCoords, setActiveCityCoords] = useState([
-//     51.752021, -1.257726,
-//   ]);
-//   const [airQuality, setAirQuality] = useState({});
-//   const [fiveDayorcast, setFiveDayForeCast] = useState({});
-//   const [uvIndex, setUvIndex] = useState({});
-
-//   //   fetch ForeCast
-//   const fetchForeCast = async (lat, lon) => {
-//     try {
-//       const res = await axios.get(`/api/weather?lat=${lat}&lon=${lon}`);
-
-//       setForecast(res.data);
-//       console.log("res : ", res.data);
-//     } catch (e) {
-//       console.log("Error fetching the forecast data", e.message);
-//     }
-//   };
-
-//   //   fetch Air quality
-//   const fetchAirQuality = async (lat, lon) => {
-//     try {
-//       const res = await axios.get(`api/pollution?lat=${lat}&lon=${lon}`);
-//       setAirQuality(res.data);
-//     } catch (error) {
-//       console.log("Error fetching the Air Quality", error.message);
-//     }
-//   };
-
-//   //   fetch fiveday forecast
-
-//   const fetchFiveDayForecast = async (lat, lon) => {
-//     try {
-//       const res = await axios.get(`api/fiveday?lat=${lat}&lon=${lon}`);
-//       setFiveDayForeCast(res.data);
-//     } catch (error) {
-//       console.log("Error Fetching the Five Day Forecast", error.message);
-//     }
-//   };
-
-//   //   fetch the geo code list
-//   const fetchGeoCodeList = async (search) => {
-//     try {
-//       const res = await axios.get(`api/geocoded?search=${search}`);
-//       setFiveDayForeCast(res.data);
-//     } catch (error) {
-//       console.log("Error Fetching the Five Day Forecast", error.message);
-//     }
-//   };
-
-//   //   fetch Uv
-//   const fetchUvIndex = async (lat, lon) => {
-//     try {
-//       const res = await axios.get(`api/uv?lat=${lat}&lon=${lon}`);
-//       setFiveDayForeCast(res.data);
-//     } catch (error) {
-//       console.log("Error Fetching the Five Day Forecast", error.message);
-//     }
-//   };
-
-//   const handleInput = (e) => {
-//     setInputValue(e.target.value);
-
-//     if (e.target.value === "") {
-//       SetGeoCodeList(defaultStates);
-//     }
-
-//     useEffect(() => {
-//       const debouncedFetch = debounce((search) => {
-//         fetchGeoCodeList(search);
-//       }, 500);
-//       if (inputValue) {
-//         debouncedFetch(inputValue);
-//       }
-
-//       //cleanup
-//       useEffect(() => {
-//         fetchForeCast(activeCityCoords[0], activeCityCoords[1]);
-//         fetchAirQuality(activeCityCoords[0], activeCityCoords[1]);
-//         fetchFiveDayForecast(activeCityCoords[0], activeCityCoords[1]);
-//         fetchUvIndex(activeCityCoords[0], activeCityCoords[1]);
-//       }, [activeCityCoords]);
-//       return (
-//         <GlobalContext.Provider
-//           value={{
-//             forecast,
-//             airQuality,
-//             fiveDayorcast,
-//             uvIndex,
-//             geoCodeList,
-//             inputValue,
-//             handleInput,
-//             setActiveCityCoords,
-//           }}
-//         >
-//           <GlobalContextUpdate.Provider value={{ setActiveCityCoords }}>
-//             {children}
-//           </GlobalContextUpdate.Provider>
-//         </GlobalContext.Provider>
-//       );
-//     });
-//   };
-// };
-
-// export const useGlobalContext = () => useContext(GlobalContext);
-// export const useGlobalContextUpdate = () => useContext(GlobalContextUpdate);
-
-"use client";
-
-import React, { useEffect, useState, createContext, useContext } from "react";
-import defaultStates from "../utils/DefaultStates";
+"use Client";
 import axios from "axios";
+import React, { useContext, createContext, useState, useEffect } from "react";
+import defaultStates from "../utils/DefaultStates";
+
 import { debounce } from "lodash";
 
 const GlobalContext = createContext();
 const GlobalContextUpdate = createContext();
 
 export const GlobalContextProvider = ({ children }) => {
-  const [forecast, setForecast] = useState([]);
-  const [geoCodeList, setGeoCodeList] = useState(defaultStates);
+  const [forecast, setForecast] = useState({});
+  const [geoCodedList, setGeoCodedList] = useState(defaultStates);
   const [inputValue, setInputValue] = useState("");
+
   const [activeCityCoords, setActiveCityCoords] = useState([
     51.752021, -1.257726,
   ]);
+
   const [airQuality, setAirQuality] = useState({});
   const [fiveDayForecast, setFiveDayForecast] = useState({});
-  const [uvIndex, setUvIndex] = useState({});
+  const [uvIndex, seUvIndex] = useState({});
 
-  const fetchForeCast = async (lat, lon) => {
+  const fetchForecast = async (lat, lon) => {
     try {
-      const res = await axios.get(`/api/weather?lat=${lat}&lon=${lon}`);
+      const res = await axios.get(`api/weather?lat=${lat}&lon=${lon}`);
+
       setForecast(res.data);
-    } catch (e) {
-      console.log("Error fetching the forecast data", e.message);
+    } catch (error) {
+      console.log("Error fetching forecast data: ", error.message);
     }
   };
 
+  // Air Quality
   const fetchAirQuality = async (lat, lon) => {
     try {
-      const res = await axios.get(`/api/pollution?lat=${lat}&lon=${lon}`);
+      const res = await axios.get(`api/pollution?lat=${lat}&lon=${lon}`);
       setAirQuality(res.data);
     } catch (error) {
-      console.log("Error fetching the Air Quality", error.message);
+      console.log("Error fetching air quality data: ", error.message);
     }
   };
 
+  // five day forecast
   const fetchFiveDayForecast = async (lat, lon) => {
     try {
-      const res = await axios.get(`/api/FiveDay?lat=${lat}&lon=${lon}`);
+      const res = await axios.get(`api/FiveDay?lat=${lat}&lon=${lon}`);
+
       setFiveDayForecast(res.data);
     } catch (error) {
-      console.log("Error Fetching the Five Day Forecast", error.message);
+      console.log("Error fetching five day forecast data: ", error.message);
     }
   };
 
-  const fetchGeoCodeList = async (search) => {
+  //geocoded list
+  const fetchGeoCodedList = async (search) => {
     try {
       const res = await axios.get(`/api/geocoded?search=${search}`);
-      setGeoCodeList(res.data);
+
+      setGeoCodedList(res.data);
     } catch (error) {
-      console.log("Error Fetching the Geo Code List", error.message);
+      console.log("Error fetching geocoded list: ", error.message);
     }
   };
 
+  //fetch uv data
   const fetchUvIndex = async (lat, lon) => {
     try {
       const res = await axios.get(`/api/uv?lat=${lat}&lon=${lon}`);
-      setUvIndex(res.data);
+
+      seUvIndex(res.data);
     } catch (error) {
-      console.log("Error Fetching the UV Index", error.message);
+      console.error("Error fetching the forecast:", error);
     }
   };
 
+  // handle input
+  const handleInput = (e) => {
+    setInputValue(e.target.value);
+
+    if (e.target.value === "") {
+      setGeoCodedList(defaultStates);
+    }
+  };
+
+  // debounce function
   useEffect(() => {
     const debouncedFetch = debounce((search) => {
-      fetchGeoCodeList(search);
+      fetchGeoCodedList(search);
     }, 500);
 
     if (inputValue) {
       debouncedFetch(inputValue);
     }
 
-    return () => {
-      debouncedFetch.cancel();
-    };
+    // cleanup
+    return () => debouncedFetch.cancel();
   }, [inputValue]);
 
   useEffect(() => {
-    fetchForeCast(activeCityCoords[0], activeCityCoords[1]);
+    fetchForecast(activeCityCoords[0], activeCityCoords[1]);
     fetchAirQuality(activeCityCoords[0], activeCityCoords[1]);
     fetchFiveDayForecast(activeCityCoords[0], activeCityCoords[1]);
     fetchUvIndex(activeCityCoords[0], activeCityCoords[1]);
+    // fetchGeoCodedList("delhi");
   }, [activeCityCoords]);
-
-  const handleInput = (e) => {
-    setInputValue(e.target.value);
-
-    if (e.target.value === "") {
-      setGeoCodeList(defaultStates);
-    }
-  };
 
   return (
     <GlobalContext.Provider
@@ -223,13 +112,17 @@ export const GlobalContextProvider = ({ children }) => {
         airQuality,
         fiveDayForecast,
         uvIndex,
-        geoCodeList,
+        geoCodedList,
         inputValue,
         handleInput,
         setActiveCityCoords,
       }}
     >
-      <GlobalContextUpdate.Provider value={{ setActiveCityCoords }}>
+      <GlobalContextUpdate.Provider
+        value={{
+          setActiveCityCoords,
+        }}
+      >
         {children}
       </GlobalContextUpdate.Provider>
     </GlobalContext.Provider>

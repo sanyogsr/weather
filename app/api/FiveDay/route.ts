@@ -33,9 +33,11 @@ export async function GET(req: NextRequest) {
         }
 
         const searchParams = req.nextUrl.searchParams;
-        
-        const lat = 29.41595155641117;
-        const lon = 76.98609355487254;
+
+        // const lat = 29.41595155641117;
+        // const lon = 76.98609355487254;
+        const lat = searchParams.get("lat");
+        const lon = searchParams.get("lon");
 
         if (!lat || !lon) {
             return new Response("Latitude and Longitude are required", { status: 300 });

@@ -1,62 +1,39 @@
 const defaultStates = [
     {
-        name: 'Madrid',
-        country: "ES"
-        , state: 'Madrid',
-        lat: 40.4165,
-        lon: -3.7026
+        name: "Mumbai",
+        country: "IN",
+        state: "Maharashtra",
+        lat: 19.076,
+        lon: 72.8777,
     },
     {
-        name: 'London',
-        country: "ES"
-        , state: 'London',
-        lat: 40.4165,
-        lon: -3.7026
+        name: "Delhi",
+        country: "IN",
+        state: "Delhi",
+        lat: 28.7041,
+        lon: 77.1025,
     },
     {
-        name: 'New York',
-        country: "US"
-        , state: 'New York',
-        lat: 40.4165,
-        lon: -3.7026
+        name: "Bangalore",
+        country: "IN",
+        state: "Karnataka",
+        lat: 12.9716,
+        lon: 77.5946,
     },
     {
-        name: 'Madrid',
-        country: "ES"
-        , state: 'Madrid',
-        lat: 40.4165,
-        lon: -3.7026
+        name: "Chennai",
+        country: "IN",
+        state: "Tamil Nadu",
+        lat: 13.0827,
+        lon: 80.2707,
     },
     {
-        name: 'Madrid',
-        country: "ES"
-        , state: 'Madrid',
-        lat: 40.4165,
-        lon: -3.7026
+        name: "Kolkata",
+        country: "IN",
+        state: "West Bengal",
+        lat: 22.5726,
+        lon: 88.3639,
     },
-    {
-        name: 'Madrid',
-        country: "ES"
-        , state: 'Madrid',
-        lat: 40.4165,
-        lon: -3.7026
-    },
-    {
-        name: 'Madrid',
-        country: "ES"
-        , state: 'Madrid',
-        lat: 40.4165,
-        lon: -3.7026
-    },
-    {
-        name: 'Madrid',
-        country: "ES"
-        , state: 'Madrid',
-        lat: 40.4165,
-        lon: -3.7026
-    },
-
-]
-
+];
 
 export default defaultStates;
