@@ -3,20 +3,39 @@ import moment from 'moment';
 import { useGlobalContext } from '@/app/context/GlobalContext';
 import { clearSky, cloudy, drizzleIcon, navigation, rain, snow } from '@/app/utils/Icons';
 import { kelvinToCelcius } from '@/app/utils/misc';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const Temperature = () => {
   const { forecast } = useGlobalContext();
-
-  // Destructure forecast only if it exists and has weather data
-  if (!forecast || !forecast.weather) return <div>Loading...</div>;
   const { main, timezone, name, weather } = forecast;
+
+  const [localTime, setLocalTime] = useState('');
+  const [currentDay, setCurrentDay] = useState('');
+  useEffect(() => {
+    // Update the time interval
+    const interval = setInterval(() => {
+      const localMoment = moment().utcOffset(timezone / 60);
+      const formattedTime = localMoment.format('HH:mm:ss');
+      const day = localMoment.format('dddd');
+
+      setLocalTime(formattedTime);
+      setCurrentDay(day);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timezone]);
+  // Destructure forecast only if it exists and has weather data
+  if (!forecast || !forecast.weather) { return <div className='flex items-center justify-center'>Loading</div>; }
+
+
+
+
 
   const temp = kelvinToCelcius(main?.temp);
   const minTemp = kelvinToCelcius(main?.temp_min);
   const maxTemp = kelvinToCelcius(main?.temp_max);
 
-  const [localTime, setLocalTime] = useState('');
-  const [currentDay, setCurrentDay] = useState('');
+
 
   const { main: weatherMain, description } = weather[0];
 
@@ -37,19 +56,7 @@ const Temperature = () => {
     }
   };
 
-  useEffect(() => {
-    // Update the time interval
-    const interval = setInterval(() => {
-      const localMoment = moment().utcOffset(timezone / 60);
-      const formattedTime = localMoment.format('HH:mm:ss');
-      const day = localMoment.format('dddd');
-
-      setLocalTime(formattedTime);
-      setCurrentDay(day);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [timezone]); // Only re-run effect if `timezone` changes
+  // Only re-run effect if `timezone` changes
 
   return (
     <div className="pb-5 pt-6 px-4 flex flex-col justify-between rounded-lg border shadow-sm dark:shadow-none dark:bg-dark-grey">
