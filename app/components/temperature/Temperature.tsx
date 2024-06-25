@@ -1,7 +1,8 @@
 import { useGlobalContext } from '@/app/context/GlobalContext'
 import { clearSky, cloudy, drizzleIcon, navigation, rain, snow } from '@/app/utils/Icons';
 import { kelvinToCelcius } from '@/app/utils/misc';
-import React, { useEffect, useState } from 'react'
+import React from "react"
+import { useEffect, useState } from 'react'
 import moment from "moment"
 
 const Temperature = () => {
